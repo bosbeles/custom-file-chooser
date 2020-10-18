@@ -13,19 +13,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CustomFileChooser extends JFileChooser {
+public class RestrictedFileChooser extends JFileChooser {
 
     private boolean readOnly;
 
-    public CustomFileChooser() {
+    public RestrictedFileChooser() {
         super(".");
     }
 
-    public CustomFileChooser(Path allowedFolder) {
+    public RestrictedFileChooser(Path allowedFolder) {
         initialize(Collections.singletonList(allowedFolder.toFile()), Paths.get("."));
     }
 
-    public CustomFileChooser(Path allowedFolder, Path otherDrivePath) {
+    public RestrictedFileChooser(Path allowedFolder, Path otherDrivePath) {
         List<File> rootList = Stream.concat(
                 Stream.of(allowedFolder.toFile().getParentFile()),
                 Stream.of(File.listRoots()).map(f -> f.toPath().resolve(otherDrivePath).toFile()))
@@ -34,7 +34,7 @@ public class CustomFileChooser extends JFileChooser {
 
     }
 
-    public CustomFileChooser(Path allowedFolder, List<File> allowedDirectoryList) {
+    public RestrictedFileChooser(Path allowedFolder, List<File> allowedDirectoryList) {
         initialize(allowedDirectoryList, allowedFolder);
     }
 
